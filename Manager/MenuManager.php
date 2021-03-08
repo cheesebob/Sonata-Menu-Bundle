@@ -53,7 +53,7 @@ class MenuManager
      * Load menu by id
      *
      * @param int $id
-     * @return Menu
+     * @return MenuInterface
      */
     public function load($id)
     {
@@ -66,7 +66,7 @@ class MenuManager
      * Load menu by alias
      *
      * @param string $alias
-     * @return Menu
+     * @return MenuInterface
      */
     public function loadByAlias($alias)
     {
@@ -88,7 +88,7 @@ class MenuManager
     /**
      * Save a menu
      *
-     * @param Menu $menu
+     * @param MenuInterface $menu
      */
     public function save(MenuInterface $menu)
     {
@@ -96,7 +96,7 @@ class MenuManager
     }
 
     /**
-     * @return Menu[]
+     * @return MenuInterface[]
      */
     public function findAll()
     {
@@ -106,8 +106,8 @@ class MenuManager
     /**
      * Get first level menu items
      *
-     * @param Menu $menu
-     * @return MenuItems[]
+     * @param MenuInterface $menu
+     * @return MenuItemInterface[]
      */
     public function getRootItems(MenuInterface $menu, $status)
     {
@@ -117,8 +117,8 @@ class MenuManager
     /**
      * Get enabled menu items
      *
-     * @param Menu $menu
-     * @return MenuItems[]
+     * @param MenuInterface $menu
+     * @return MenuItemInterface[]
      */
     public function getEnabledItems(MenuInterface $menu)
     {
@@ -128,8 +128,8 @@ class MenuManager
     /**
      * Get disabled menu items
      *
-     * @param Menu $menu
-     * @return MenuItems[]
+     * @param MenuInterface $menu
+     * @return MenuItemInterface[]
      */
     public function getDisabledItems(MenuInterface $menu)
     {
@@ -139,7 +139,7 @@ class MenuManager
     /**
      * Get menu items
      *
-     * @return MenuItem[]
+     * @return MenuItemInterface[]
      */
     public function getMenuItems(MenuInterface $menu, $root = self::ALL_ELEMENTS, $status = self::STATUS_ALL)
     {
@@ -183,7 +183,7 @@ class MenuManager
         if(!empty($items) && $menu) {
 
             foreach ($items as $pos => $item) {
-                /** @var MenuItem $menuItem */
+                /** @var MenuItemInterface $menuItem */
                 $menuItem = $this->menuItemRepository->findOneBy(array('id' => $item->id, 'menu' => $menu));
 
                 if($menuItem) {

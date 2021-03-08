@@ -165,6 +165,40 @@ class MenuItemAdmin extends AbstractAdmin
                 ->end();
         }
 
+//        if($this->getConfigurationPool()->getContainer()->hasParameter('sonata.page.page.class'))
+//        {
+//            $pageAdmin = $this->getConfigurationPool()->getContainer()->get('sonata.page.admin.page');
+//
+//            $formMapper
+//                ->with('config.label_menu_link', ['class' => 'col-md-6', 'translation_domain' => 'ProdigiousSonataMenuBundle'])
+//                ->add('page', \Sonata\PageBundle\Form\Type\PageSelectorType::class,
+//                    [
+//                        'label' => 'config.label_page',
+//                        'site' => $subject->getMenu()->getSite() ?: null,
+//                        'model_manager' => $pageAdmin->getModelManager(),
+//                        'class' => $pageAdmin->getClass(),
+//                        'required' => false,
+//                        'btn_add' => false,
+//                        'property' => 'name',
+//                    ],
+//                    [
+//                        'translation_domain' => 'ProdigiousSonataMenuBundle'
+//                    ]
+//                )
+//                ->add('pageParameter', TextType::class,
+//                    [
+//                        'label' => 'config.label_page_parameter',
+//                        'required' => false,
+//                        'attr' => ['style' => 'border:1px solid #ec6d36;'],
+//                        'help' => 'Only the parameter string, no leading \'?\'.',
+//                    ],
+//                    [
+//                        'translation_domain' => 'ProdigiousSonataMenuBundle'
+//                    ]
+//                )
+//                ->end();
+//        }
+
 
         $formMapper
             ->with('config.label_menu_link', ['class' => 'col-md-6', 'translation_domain' => 'ProdigiousSonataMenuBundle'])

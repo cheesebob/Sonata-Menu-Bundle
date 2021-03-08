@@ -65,7 +65,7 @@ abstract class MenuItem implements MenuItemInterface
     protected $page;
 
     /**
-     * @var \Prodigious\Sonata\PageBundle\Model\MenuItemInterface
+     * @var \Prodigious\Sonata\MenuBundle\Model\MenuItemInterface
      *
      * @ORM\ManyToOne(targetEntity="\Prodigious\Sonata\MenuBundle\Model\MenuItemInterface", inversedBy="children", cascade={"persist"})
      * @ORM\JoinColumn(name="parent", referencedColumnName="id", onDelete="SET NULL", nullable=true)
@@ -383,17 +383,14 @@ abstract class MenuItem implements MenuItemInterface
         return !is_null($this->parent);
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getActiveChildren()
     {
-        $children = array();
-
-        foreach ($this->children as $child) {
-            if($child->enabled) {
-                array_push($children, $child);
-            }
-        }
-
-        return $children;
+        return $this->children->filter(function(MenuItemInterface $child) {
+            return $child->getEnabled();
+        });
     }
 
     public function __toString()
