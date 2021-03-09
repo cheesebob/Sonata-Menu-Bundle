@@ -311,7 +311,7 @@ class MenuItemAdmin extends AbstractAdmin
 
             $container = $this->getConfigurationPool()->getContainer();
 
-            $slugify = $container->get('sonata.core.slugify.cocur');
+            $slugify = $container->get('sonata.page.slugify.cocur');
 
             $url = $slugify->slugify(strip_tags($object->getName()));
 
