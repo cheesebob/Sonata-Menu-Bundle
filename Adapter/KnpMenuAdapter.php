@@ -67,23 +67,32 @@ class KnpMenuAdapter
      * @param MenuItemInterface $menuItem
      * @return ItemInterface
      */
-    protected function recursiveAddItem(ItemInterface $menu, MenuItemInterface $menuItem)
+    protected function addChild(ItemInterface $menu, MenuItemInterface $menuItem)
     {
-        /** @var ArrayCollection $activeChildren */
-        $activeChildren = $menuItem->getActiveChildren();
-        $childMenu = $menu->addChild(sprintf('%s.%d', $menu->getName(), $menuItem->getId()), [
+        return $menu->addChild(sprintf('%s.%d', $menu->getName(), $menuItem->getId()), [
             'route' => $menuItem->getPage() ?? null,
             'uri' => $menuItem->getUrl(),
             'label' => $menuItem->getName(),
             'attributes' => [
-                'dropdown' => !$activeChildren->isEmpty(),
+                'dropdown' => !$menuItem->getActiveChildren()->isEmpty(),
             ],
             'linkAttributes' => [
                 'target' => $menuItem->getTarget() ? '_blank' : null,
             ],
-        ])
-            ->setLinkAttribute('class', $menuItem->getClassAttribute())
-        ;
+        ]);
+    }
+
+    /**
+     * @param ItemInterface $menu
+     * @param MenuItemInterface $menuItem
+     * @return ItemInterface
+     */
+    protected function recursiveAddItem(ItemInterface $menu, MenuItemInterface $menuItem)
+    {
+        /** @var ArrayCollection $activeChildren */
+        $activeChildren = $menuItem->getActiveChildren();
+        $childMenu = $this->addChild($menu, $menuItem)
+            ->setLinkAttribute('class', $menuItem->getClassAttribute());
 
         if (!$activeChildren->isEmpty()) {
             foreach ($activeChildren as $childPage) {
