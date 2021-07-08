@@ -331,7 +331,11 @@ class MenuItemAdmin extends AbstractAdmin
      */
     public function toString($object)
     {
-        return $object instanceof MenuItemInterface ? $object->getName() : $this->getTranslator()->trans("config.label_menu_item", array(), 'ProdigiousSonataMenuBundle');
+        if ($object instanceof MenuItemInterface) {
+            return $object->getName() === null ? 'missing_translation' : $object->getName();
+        }
+
+        return $this->getTranslator()->trans("config.label_menu_item", array(), 'ProdigiousSonataMenuBundle');
     }
 
 }
